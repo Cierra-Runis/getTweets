@@ -3,8 +3,8 @@
 // @namespace       https://github.com/Cierra-Runis/getTweets
 // @version         1.0
 // @description     扒取推文的插件
-// @updateURL       https://raw.githubusercontent.com/Cierra-Runis/FuckQQ/master/FuckQQ.js
-// @downloadURL     https://raw.githubusercontent.com/Cierra-Runis/FuckQQ/master/FuckQQ.js
+// @updateURL       https://raw.githubusercontent.com/Cierra-Runis/getTweets/master/getTweets.js
+// @downloadURL     https://raw.githubusercontent.com/Cierra-Runis/getTweets/master/getTweets.js
 // @connect         raw.githubusercontent.com
 // @connect         github.com
 // @connect         cdn.jsdelivr.net
@@ -54,12 +54,12 @@ window.onload = (function () {
             var blocks = section.querySelector('div>div').childNodes;
 
             for (var i = 0; i < blocks.length; i++) {
-                var div6 = blocks[i].querySelector('div>div>div>div>div>div>article>div>div>div');
-                if (div6 == null) {
+                var div = blocks[i].querySelector('div>div>div>div>div>div>article>div>div>div');
+                if (div == null) {
                     // console.log('block is null');
                 } else {
                     try {
-                        var block = div6.childNodes[1];
+                        var block = div.childNodes[1];
                         var href = block.getElementsByTagName("a")[0].href;
                         if (href != url) {
                             // console.log(href + "!=" + url);
@@ -93,7 +93,8 @@ window.onload = (function () {
                 var jsonStr = JSON.stringify(list);
                 // console.log(jsonStr);
                 createAndDownloadFile(url.substring(20) + ".json", jsonStr);
-                while (1);
+                window.location.href = "about:blank";
+                window.close();
             }
             window.scrollTo(0, document.body.scrollHeight);
         } catch (error) {
