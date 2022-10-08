@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            推文扒取
 // @namespace       https://github.com/Cierra-Runis/getTweets
-// @version         1.0
+// @version         1.1
 // @description     扒取推文的插件
 // @updateURL       https://raw.githubusercontent.com/Cierra-Runis/getTweets/master/getTweets.js
 // @downloadURL     https://raw.githubusercontent.com/Cierra-Runis/getTweets/master/getTweets.js
@@ -43,15 +43,8 @@ window.onload = (function () {
         var before = list.length;
 
         try {
-            var div1 = document.querySelector("#react-root > div > div ");
-            var div2 = div1.childNodes[2];
-            var main = div2.querySelector('main');
-            var timeline = main.querySelector('div > div > div > div > div');
-            var div3 = timeline.childNodes[1];
-            var div4 = div3.querySelector('div');
-            var div5 = div4.querySelector('div');
-            var section = div5.childNodes[2];
-            var blocks = section.querySelector('div>div').childNodes;
+
+            var blocks = document.evaluate('//*[@id="react-root"]/div[1]/div/div[2]/main/div/div/div/div[1]/div/div[3]/div/div/section/div/div', document).iterateNext().childNodes
 
             for (var i = 0; i < blocks.length; i++) {
                 var div = blocks[i].querySelector('div>div>div>div>div>div>article>div>div>div');
