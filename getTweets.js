@@ -26,7 +26,7 @@ window.onload = (function () {
         div.style.cssText = "width: 25px;height: 25px;color: #ffffff;text-align: center;font-size: small;line-height: 25px;margin: 5px;cursor: pointer;display: flow-root;z-index: 1";
         div.innerText = "下载";
         div.onclick = function () {
-            if (div.onclick = confirm("要下载推文吗？")) {
+            if (confirm("要下载推文吗？")) {
                 setInterval(getTweets, 5000);
             }
         }
