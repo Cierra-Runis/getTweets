@@ -1,10 +1,8 @@
 // ==UserScript==
 // @name            推文扒取
 // @namespace       https://github.com/Cierra-Runis/getTweets
-// @version         1.1
+// @version         1.2
 // @description     扒取推文的插件
-// @updateURL       https://raw.githubusercontent.com/Cierra-Runis/getTweets/master/getTweets.js
-// @downloadURL     https://raw.githubusercontent.com/Cierra-Runis/getTweets/master/getTweets.js
 // @connect         raw.githubusercontent.com
 // @connect         github.com
 // @connect         cdn.jsdelivr.net
@@ -47,17 +45,24 @@ window.onload = (function () {
             var blocks = document.evaluate('//*[@id="react-root"]/div[1]/div/div[2]/main/div/div/div/div[1]/div/div[3]/div/div/section/div/div', document).iterateNext().childNodes
 
             for (var i = 0; i < blocks.length; i++) {
-                var div = blocks[i].querySelector('div>div>div>div>div>div>article>div>div>div');
+                var div = blocks[i].querySelector('div>div>div>article>div>div');
                 if (div == null) {
                     // console.log('block is null');
                 } else {
                     try {
                         var block = div.childNodes[1];
+                        if (block.childNodes[1].childElementCount != 3) {
+                            console.log('This is a block has not text');
+                            continue;
+                        } else {
+                            console.log('Has text!');
+                        }
                         var href = block.getElementsByTagName("a")[0].href;
                         if (href != url) {
                             // console.log(href + "!=" + url);
+                            continue;
                         } else {
-                            var textContent = block.querySelectorAll('div')[51].textContent;
+                            var textContent = block.childNodes[1].childNodes[1].innerText;
                             var isExited = false;
                             for (var j = 0; j < list.length; j++) {
                                 if (list[j].content == textContent) {
@@ -79,8 +84,11 @@ window.onload = (function () {
             // console.log('END');
             var after = list.length;
             if (after == before) {
-                console.log('No new text was add.');
+                // console.log('No new text was add!!!');
                 times++;
+            } else {
+                // console.log('New text was Add.');
+                times = 0;
             }
             if (times > 3) {
                 var jsonStr = JSON.stringify(list);
